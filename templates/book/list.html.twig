@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book List!{% endblock %}
+
+{% block body %}
+
+<div class="container"><br>
+<a href="{{ path('book_new')}}" class="btn btn-info btn-lg">+ Ajouter un Livre</a> <br>
+<table class="table"><br>
+
+  {% for message in app.flashes('book_new_success') %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Felicitations</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+  {% endfor %}
+
+  {% for message in app.flashes('book_modif') %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+  <strong>Felicitations</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+  {% endfor %}
+   
+  {% for message in app.flashes('book_suprim') %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Félicitations</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+  {% endfor %}
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Description</th>
+      <th scope="col">Category</th>
+      <th scope="col">Author</th>
+      <th scope="col">Price</th>
+      <th scope="col">Date publication</th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+   {% for book in books %}
+    <tr>
+      <th scope="row">{{ book.id}}</th>
+      <td>{{ book.title }}</td>
+      {% if book.description|length >= 20 %}
+      <td>{{ book.Description|slice(0, 18) }}...</td>
+      {% else %}
+      <td>{{ book.description }}</td>
+      {% endif %}
+      <td>{{ book.category.name|default('')}}</td>
+      <td>{{ book.author.name|default('N.C')}}</td>
+      {% if book.price is not null %}
+      <td>{{ book.price|number_format(2, '.', ',')}}€</td> 
+      {% else %} 
+      <td>N.C</td> 
+      {% endif %} 
+      {% if book.price is not null %}
+      <td>{{ book.price|number_format(2, '.', ',')}}€</td> 
+      {% else %} 
+      <td>N.C</td> 
+      {% endif %} 
+     
+      <td>{{ book.PublishedAt|date("d/m/Y")}}</td>
+      <td>
+         <a href="{{ path('book_detail', {id: book.id})}}" class="btn btn-success btn-sm ">Afficher</a>
+
+         <a href="{{ path('book_modif', {id: book.id})}}" onclick="return confirm('Etes-vous sure de bien vouloir modifier ?')"class="btn btn-warning btn-sm ">Modifier</a>
+         
+         <a href="{{ path('book_suprim', {id: book.id})}}" onclick="return confirm('Etes-vous sure de vouloir suprimmer ce livre ?')" class="btn btn-danger btn-sm ">Suprimer</a>
+      </td>
+    </tr>
+        {% endfor %}
+    
+  </tbody>
+</table>
+</div>
+
+
+{% endblock %}

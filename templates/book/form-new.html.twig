@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Site BiBLIO -Accueil{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<h1>Ajout d'un livre</h1>
+{# {{ form(formBook) }} #}
+
+{{ form_start(formBook) }}
+  <div class="row">
+    <div class="col">
+    {{ form_row(formBook.title, {'label' : 'Mon Titre'}) }}
+    </div>
+    <div class="col">
+    {{ form_row(formBook.price) }}
+    </div>
+    <div class="col-12">
+    {{ form_row(formBook.description) }}
+    </div>
+    <div class="col-12">
+      {{ form_row(formBook.category) }}
+      </div>
+    <div class="col-12">
+      {{ form_row(formBook.author) }}
+      </div>
+      <div class="col-12">
+        {{ form_row(formBook.imageFile) }}
+        </div>
+      
+  </div>
+  <input type="submit" class="btn btn-primary mt-2 mb-4" value="Enregistrer"/>
+{{ form_end(formBook) }}
+</div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-4 mb-4">
+
+    <h1>Les requêtes de l'orm doctrine</h1>
+
+    <h2>1/ findAll() : récuperer tous les élements d'une entité</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Prix (€)</th>
+                <th scope="col">Auteur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in bookAll %}
+            <tr>
+                <th scope="row">{{ book.id }}</th>
+                <td>{{ book.title }}</td>
+                <td>{{ book.category.name|default('') }}</td>
+                <td>{{ book.price|default('N.C') }} €</td>
+                <td>{{ book.author.name|default('') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h2>2/ find() : récuperer l'objet Book qui a l'id = 8</h2>
+            <p>
+                Id : {{ bookById.id }}<br>
+                Titre : {{ bookById.title}}<br>
+                Catégorie : {{ bookById.category.name|default('N.C') }}
+            </p>
+
+     <h2>3/ findBy() : récuperer tous les élements a partir de criteres</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Prix (€)</th>
+                <th scope="col">Auteur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in bookBy %}
+            <tr>
+                <th scope="row">{{ book.id }}</th>
+                <td>{{ book.title }}</td>
+                <td>{{ book.category.name|default('') }}</td>
+                <td>{{ book.price|default('N.C') }} €</td>
+                <td>{{ book.author.name|default('') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>4/ findOneBy() : récuperer 1 objet Book en fonction du critère</h2>
+    <p>
+        Id : {{ bookOneBy.id }}<br>
+        Titre : {{ bookOneBy.title}}<br>
+        Catégorie : {{ bookOneBy.category.name|default('N.C') }}
+    </p>  
+    <h2>5/ findByGreaterPrice() : récuperer tous les élements qui son superieur a 10 euros </h2>
+    <table class="table">
+        <thead>
+            <tr>=
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Prix (€)</th>
+                <th scope="col">Auteur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in bookGreater %}
+            <tr>
+                <th scope="row">{{ book.id }}</th>
+                <td>{{ book.title }}</td>
+                <td>{{ book.category.name|default('') }}</td>
+                <td>{{ book.price|default('N.C') }} €</td>
+                <td>{{ book.author.name|default('') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    
+{% endblock %}
